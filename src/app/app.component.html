@@ -2,73 +2,17 @@
   <div class="flex-container">
     <div class="map-container">
       <app-india-map
-        stateToZoom="{{ selectedState }}"
-        districtToZoom="{{ selectedDistrict }}"
-        (updateStateName)="setSelectedState($event)"
-        (updateDistrictName)="setSelectedDistrict($event)"
       ></app-india-map>
     </div>
     <div class="nav flex flex-row justify-space-between">
       <div class="pointer back-btn" (click)="goBack()">
-        <app-icon-back /> <span>Back</span>
+        <app-icon-back></app-icon-back> <span>Back</span>
       </div>
-      <div>COVID-19 cases > India > District</div>
+      <div>COVID-19 cases > India <span *ngIf="isStateSelected()">> Districts</span></div>
     </div>
     <div class="list-container">
-      <div *ngIf="!selectedState" class="list">
-        <md-list>
-          <app-list-item
-            (updateStateName)="setSelectedState(stateData.state)"
-            *ngFor="let stateData of allStatesData; index as i"
-            [itemType]="'State:'"
-            [stateName]="stateData.state"
-            [confirmed]="stateData.confirmed"
-            [recovered]="stateData.recovered"
-            [deceased]="stateData.deceased"
-          ></app-list-item>
-        </md-list>
-      </div>
-
-      <div *ngIf="!!selectedState && !selectedDistrict" class="list">
-        <md-list>
-          <app-list-item
-            (updateStateName)="setSelectedDistrict(districtData.district)"
-            *ngFor="
-              let districtData of selectedStateData?.districtData;
-              index as i
-            "
-            [itemType]="'District:'"
-            [stateName]="districtData.district"
-            [confirmed]="districtData.confirmed"
-            [recovered]="districtData.recovered"
-            [deceased]="districtData.deceased"
-          ></app-list-item>
-        </md-list>
-      </div>
-
-      <div
-        *ngIf="!!selectedState && !!selectedDistrict && !!selectedDistrictData"
-        class="list"
-      >
-        <md-list>
-          <app-list-item
-            [itemType]="'District:'"
-            [stateName]="selectedDistrictData.district"
-            [confirmed]="selectedDistrictData.confirmed"
-            [recovered]="selectedDistrictData.recovered"
-            [deceased]="selectedDistrictData.deceased"
-          ></app-list-item>
-        </md-list>
-      </div>
-
-      <div
-        *ngIf="!!selectedState && !!selectedDistrict && !selectedDistrictData"
-        class="error"
-      >
-        No data available
-      </div>
+      <router-outlet></router-outlet>
     </div>
-    <app-footer />
+    <app-footer></app-footer>
   </div>
 </main>
-<router-outlet />

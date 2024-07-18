@@ -20,7 +20,7 @@ import { StateIconComponent } from '../icons/state-icon/state-icon.component';
     StateIconComponent,
   ],
   templateUrl: './list-item.component.html',
-  styleUrl: './list-item.component.css',
+  styleUrls: ['./list-item.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ListItemComponent {

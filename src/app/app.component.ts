@@ -1,14 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { IndiaMapComponent } from './india-map/india-map.component';
-import { NgFor, NgIf } from '@angular/common';
+import { Location, NgFor, NgIf } from '@angular/common';
 import { ListItemComponent } from './list-item/list-item.component';
 import { DistrictDataItem, StateData } from './types';
 import { FooterComponent } from './footer/footer.component';
+import { IconBackComponent } from './icons/icon-back/icon-back.component';
+import { CovidDataService } from './covidDataService.service';
 import '@material/web/list/list-item.js';
 import '@material/web/list/list.js';
 import '@material/web/button/elevated-button.js';
-import { IconBackComponent } from './icons/icon-back/icon-back.component';
 
 @Component({
   selector: 'app-root',
@@ -30,85 +31,32 @@ export class AppComponent implements OnInit {
   title: string = 'covid-19-india';
   covidDataByStateDistrict: Record<string, any> | null = null;
   allStates: string[] = [];
-  selectedState: string | null = null;
-  selectedDistrict: string | null = null;
   allStatesData: StateData[] = [];
   selectedStateData: StateData | undefined;
   selectedDistrictData: DistrictDataItem | undefined;
+  
+  constructor(private covidDataService: CovidDataService, private router: Router, private location: Location, activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.getCovidData();
-  }
-
-  getCovidData(): void {
-    fetch('https://data.covid19india.org/state_district_wise.json')
-      .then((response) => response.json())
-      .then((data) => {
-        this.covidDataByStateDistrict = data;
-        this.allStates = Object.keys(data).filter(
-          (state) => state !== 'State Unassigned',
-        );
-        this.allStates.map((state) => {
-          const stateData = data[state];
-          const confirmed = Object.values(stateData.districtData).reduce(
-            (acc: number, district: any) => acc + district.confirmed,
-            0,
-          );
-          const deceased = Object.values(stateData.districtData).reduce(
-            (acc: number, district: any) => acc + district.deceased,
-            0,
-          );
-          const recovered = Object.values(stateData.districtData).reduce(
-            (acc: number, district: any) => acc + district.recovered,
-            0,
-          );
-
-          const districtData: DistrictDataItem[] = Object.keys(
-            stateData.districtData,
-          ).map((district) => {
-            const districtInfo = stateData.districtData[district];
-            return {
-              district,
-              confirmed: districtInfo.confirmed,
-              deceased: districtInfo.deceased,
-              recovered: districtInfo.recovered,
-            };
-          });
-
-          this.allStatesData.push({
-            state,
-            confirmed,
-            deceased,
-            recovered,
-            districtData,
-          });
-        });
-      });
-  }
-
-  setSelectedState(state: string): void {
-    this.selectedState = state;
-    this.selectedStateData = this.allStatesData.find((stateData) =>
-      stateData.state.includes(state),
-    );
-  }
-
-  setSelectedDistrict(district: string): void {
-    this.selectedDistrict = district;
-    this.selectedDistrictData = this.selectedStateData?.districtData.find(
-      (districtData) =>
-        districtData.district.includes(district) ||
-        district.includes(districtData.district),
-    );
+    this.router.navigate(['']);
   }
 
   goBack(): void {
-    if (this.selectedDistrict && this.selectedStateData) {
-      this.selectedDistrict = null;
-      this.selectedDistrictData = undefined;
-    } else if (this.selectedState) {
-      this.selectedState = null;
-      this.selectedStateData = undefined;
+    const state = this.covidDataService.selectedState;
+    const district = this.covidDataService.selectedDistrict;
+    if(state && district) {
+      this.covidDataService.setSelectedDistrict('');
+      this.router.navigate(['/states', state]);
+      return;
+    } else if(state) {
+      this.covidDataService.setSelectedState('');
+      this.router.navigate(['/']);
+      return;
     }
+  }
+
+  isStateSelected(): boolean {
+    return !!this.covidDataService.selectedState;
   }
 }

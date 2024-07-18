@@ -1,13 +1,9 @@
 import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  OnInit,
-  EventEmitter,
-  Output,
+  Component
 } from '@angular/core';
 import * as d3 from 'd3';
+import { CovidDataService } from '../covidDataService.service';
+import {  NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-india-map',
@@ -15,12 +11,7 @@ import * as d3 from 'd3';
   styleUrls: ['./india-map.component.css'],
   standalone: true,
 })
-export class IndiaMapComponent implements OnInit, OnChanges {
-  @Input() stateToZoom: string | null = null;
-  @Input() districtToZoom: string | null = null;
-  @Output() updateStateName: EventEmitter<any> = new EventEmitter();
-  @Output() updateDistrictName: EventEmitter<any> = new EventEmitter();
-
+export class IndiaMapComponent  {
   private width = window.innerWidth;
   private height = 500;
   private svg: any;
@@ -30,22 +21,29 @@ export class IndiaMapComponent implements OnInit, OnChanges {
   private districts: any;
   private zoom: any;
 
-  constructor() {}
+  constructor(private covidDataService: CovidDataService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.drawMap();
-  }
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const state = this.covidDataService.selectedState;
+        const district = this.covidDataService.selectedDistrict;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['stateToZoom'] && this.stateToZoom) {
-      this.zoomToState(this.stateToZoom);
-    } else if (changes['stateToZoom'] && !this.stateToZoom) {
-      this.reset();
-    }
+        if (state && district) {
+          this.zoomToDistrict(district);
+        }
 
-    if (changes['districtToZoom'] && this.districtToZoom) {
-      this.zoomToDistrict(this.districtToZoom);
-    }
+        if (state && !district) {
+          this.zoomToState(state);
+        }
+
+        if (!state && !district) {
+          this.reset();
+        }
+      }
+    });
   }
 
   drawMap(): void {
@@ -108,10 +106,6 @@ export class IndiaMapComponent implements OnInit, OnChanges {
             this.clicked(event, d);
             this.showDistricts(stateName);
           });
-
-          if (this.stateToZoom) {
-            this.zoomToState(this.stateToZoom);
-          }
         });
 
         this.g
@@ -166,11 +160,10 @@ export class IndiaMapComponent implements OnInit, OnChanges {
       );
 
     if (d.properties.NAME_1 && !d.properties.NAME_2) {
-      this.updateStateName.emit(d.properties.NAME_1);
-      this.updateDistrictName.emit(undefined);
+      this.router.navigate(['/states', d.properties.NAME_1]);
     }
     if (d.properties.NAME_2) {
-      this.updateDistrictName.emit(d.properties.NAME_2);
+      this.router.navigate(['/states', d.properties.NAME_1, 'districts', d.properties.NAME_2]);
     }
   }
 
