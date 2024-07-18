@@ -6,7 +6,9 @@ import { DistrictDetailComponent } from './routes/district-detail/district-detai
 export const routes: Routes = [
   { path: 'states', component: StateListComponent },
   { path: 'states/:state', component: DistrictListComponent },
-  { path: 'states/:state/districts/:district', component: DistrictDetailComponent },
-  { path: '**', redirectTo: 'states' }
+  {
+    path: 'states/:state/districts/:district',
+    component: DistrictDetailComponent,
+  },
+  { path: '**', redirectTo: 'states' },
 ];
-

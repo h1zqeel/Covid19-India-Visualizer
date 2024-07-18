@@ -55,7 +55,7 @@ export class CovidDataService {
           });
         });
       })
-      .finally(()=>{
+      .finally(() => {
         this.setAllStatesData(this.allStatesData);
       });
   }
@@ -65,18 +65,22 @@ export class CovidDataService {
   }
 
   async getAllStatesData() {
-    if(this.allStatesData.length === 0)
-      await this.getCovidData();
+    if (this.allStatesData.length === 0) await this.getCovidData();
     return this.allStatesData;
   }
 
   async getStateData(state: string) {
-    return this.allStatesData.find((s) => s.state.includes(state) || state.includes(s.state));
+    return this.allStatesData.find(
+      (s) => s.state.includes(state) || state.includes(s.state),
+    );
   }
 
-  async getDistrictData(state: string, district: string){
+  async getDistrictData(state: string, district: string) {
     const stateData = await this.getStateData(state);
-    return stateData?.districtData.find((d : any) => d.district.includes(district) || district.includes(d.district));
+    return stateData?.districtData.find(
+      (d: any) =>
+        d.district.includes(district) || district.includes(d.district),
+    );
   }
 
   setSelectedState(state: string): void {

@@ -1,9 +1,7 @@
-import {
-  Component
-} from '@angular/core';
+import { Component } from '@angular/core';
 import * as d3 from 'd3';
 import { CovidDataService } from '../covidDataService.service';
-import {  NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-india-map',
@@ -11,7 +9,7 @@ import {  NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./india-map.component.css'],
   standalone: true,
 })
-export class IndiaMapComponent  {
+export class IndiaMapComponent {
   private width = window.innerWidth;
   private height = 500;
   private svg: any;
@@ -21,12 +19,14 @@ export class IndiaMapComponent  {
   private districts: any;
   private zoom: any;
 
-  constructor(private covidDataService: CovidDataService, private router: Router) {
-  }
+  constructor(
+    private covidDataService: CovidDataService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.drawMap();
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const state = this.covidDataService.selectedState;
         const district = this.covidDataService.selectedDistrict;
@@ -163,7 +163,12 @@ export class IndiaMapComponent  {
       this.router.navigate(['/states', d.properties.NAME_1]);
     }
     if (d.properties.NAME_2) {
-      this.router.navigate(['/states', d.properties.NAME_1, 'districts', d.properties.NAME_2]);
+      this.router.navigate([
+        '/states',
+        d.properties.NAME_1,
+        'districts',
+        d.properties.NAME_2,
+      ]);
     }
   }
 

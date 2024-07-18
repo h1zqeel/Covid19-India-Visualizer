@@ -25,10 +25,12 @@ import { ListItemComponent } from '../../list-item/list-item.component';
   `,
 })
 export class StateListComponent {
-  states : any= null;
+  states: any = null;
 
-  constructor(private covidDataService: CovidDataService, private router: Router) {
-  }
+  constructor(
+    private covidDataService: CovidDataService,
+    private router: Router,
+  ) {}
 
   async ngOnInit() {
     this.states = await this.covidDataService.getAllStatesData();

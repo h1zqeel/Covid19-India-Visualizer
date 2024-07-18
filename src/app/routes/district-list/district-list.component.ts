@@ -30,16 +30,17 @@ export class DistrictListComponent implements OnInit {
   constructor(
     private router: Router,
     private covidDataService: CovidDataService,
-    private activatedRoute: ActivatedRoute
-  ) {
-  }
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   async ngOnInit() {
     if (this.activatedRoute.snapshot.params['state']) {
-      const data = await this.covidDataService.getStateData(this.activatedRoute.snapshot.params['state']);
+      const data = await this.covidDataService.getStateData(
+        this.activatedRoute.snapshot.params['state'],
+      );
       console.log(data);
       this.districts = data?.districtData ?? [];
-      console.log(this.districts)
+      console.log(this.districts);
     }
   }
 

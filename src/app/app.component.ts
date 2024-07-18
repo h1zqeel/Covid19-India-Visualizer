@@ -34,9 +34,11 @@ export class AppComponent implements OnInit {
   allStatesData: StateData[] = [];
   selectedStateData: StateData | undefined;
   selectedDistrictData: DistrictDataItem | undefined;
-  
-  constructor(private covidDataService: CovidDataService, private router: Router, private location: Location, activatedRoute: ActivatedRoute) {
-  }
+
+  constructor(
+    private covidDataService: CovidDataService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.router.navigate(['']);
@@ -45,11 +47,11 @@ export class AppComponent implements OnInit {
   goBack(): void {
     const state = this.covidDataService.selectedState;
     const district = this.covidDataService.selectedDistrict;
-    if(state && district) {
+    if (state && district) {
       this.covidDataService.setSelectedDistrict('');
       this.router.navigate(['/states', state]);
       return;
-    } else if(state) {
+    } else if (state) {
       this.covidDataService.setSelectedState('');
       this.router.navigate(['/']);
       return;

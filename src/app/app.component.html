@@ -1,14 +1,16 @@
 <main class="main">
   <div class="flex-container">
     <div class="map-container">
-      <app-india-map
-      ></app-india-map>
+      <app-india-map></app-india-map>
     </div>
     <div class="nav flex flex-row justify-space-between">
       <div class="pointer back-btn" (click)="goBack()">
         <app-icon-back></app-icon-back> <span>Back</span>
       </div>
-      <div>COVID-19 cases > India <span *ngIf="isStateSelected()">> Districts</span></div>
+      <div>
+        COVID-19 cases > India
+        <span *ngIf="isStateSelected()">> Districts</span>
+      </div>
     </div>
     <div class="list-container">
       <router-outlet></router-outlet>

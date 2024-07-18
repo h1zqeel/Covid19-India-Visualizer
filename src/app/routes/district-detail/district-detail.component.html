@@ -1,14 +1,12 @@
 <div *ngIf="districtData" class="list">
-      <md-list>
-        <app-list-item
-          [itemType]="'District:'"
-          [stateName]="districtData.district"
-          [confirmed]="districtData.confirmed"
-          [recovered]="districtData.recovered"
-          [deceased]="districtData.deceased"
-        ></app-list-item>
-      </md-list>
-    </div>
-    <div *ngIf="!districtData" class="error">
-      No data available
-    </div>
+  <md-list>
+    <app-list-item
+      [itemType]="'District:'"
+      [stateName]="districtData.district"
+      [confirmed]="districtData.confirmed"
+      [recovered]="districtData.recovered"
+      [deceased]="districtData.deceased"
+    ></app-list-item>
+  </md-list>
+</div>
+<div *ngIf="!districtData" class="error">No data available</div>

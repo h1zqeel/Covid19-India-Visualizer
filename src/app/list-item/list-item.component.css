@@ -1,47 +1,44 @@
-
-
 .main {
-	background-color: white;
-	border-bottom: 1px solid #D1D5DA;
-	padding: 0px 10px 10px;
-	cursor: pointer;
+  background-color: white;
+  border-bottom: 1px solid #d1d5da;
+  padding: 0px 10px 10px;
+  cursor: pointer;
 }
 
-
 .main:hover {
-	background-color: #E0E3E7;
+  background-color: #e0e3e7;
 }
 
 .flex {
-	display: flex;
+  display: flex;
 }
 
 .flex-col {
-	flex-direction: column;
+  flex-direction: column;
 }
 
 .flex-row {
-	flex-direction: row;
+  flex-direction: row;
 }
 
 .justify-space-around {
-	justify-content: space-around;
+  justify-content: space-around;
 }
 
 .info-item {
-	margin: 0px 5px;
-	padding: 5px;
-	border: 1px solid #7B7F86;
-	border-radius: 5px;
-	color: #40484C;
-	display: flex;
-    align-items: center;
+  margin: 0px 5px;
+  padding: 5px;
+  border: 1px solid #7b7f86;
+  border-radius: 5px;
+  color: #40484c;
+  display: flex;
+  align-items: center;
 }
 
 .info-item span {
-	margin-left: 5px;
+  margin-left: 5px;
 }
 
 .state-map {
-	display: relative;
+  display: relative;
 }
