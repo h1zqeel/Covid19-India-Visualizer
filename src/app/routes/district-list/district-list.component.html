@@ -1,6 +1,6 @@
 <md-list>
   <app-list-item
-    (updateStateName)="onSelectDistrict(district.district)"
+    (updateName)="onSelectDistrict(district.district)"
     *ngFor="let district of districts"
     [itemType]="'District'"
     [stateName]="district.district"

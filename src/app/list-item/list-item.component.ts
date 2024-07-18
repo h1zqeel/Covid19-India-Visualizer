@@ -24,15 +24,15 @@ import { StateIconComponent } from '../icons/state-icon/state-icon.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ListItemComponent {
-  @Input() stateName: string | null = '';
+  @Input() name: string | null = '';
   @Input() stateCode: string | null = '';
   @Input() confirmed: number | null = 0;
   @Input() deceased: number | null = 0;
   @Input() recovered: number | null = 0;
   @Input() itemType: string | null = '';
-  @Output() updateStateName: EventEmitter<any> = new EventEmitter();
+  @Output() updateName: EventEmitter<any> = new EventEmitter();
 
   handleClick() {
-    this.updateStateName.emit(this.stateName);
+    this.updateName.emit(this.name);
   }
 }

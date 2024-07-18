@@ -13,10 +13,10 @@ import { ListItemComponent } from '../../list-item/list-item.component';
   template: `
     <md-list>
       <app-list-item
-        (updateStateName)="onSelectState(state.state)"
+        (updateName)="onSelectState(state.state)"
         *ngFor="let state of states"
         [itemType]="'State'"
-        [stateName]="state.state"
+        [name]="state.state"
         [confirmed]="state.confirmed"
         [recovered]="state.recovered"
         [deceased]="state.deceased"
