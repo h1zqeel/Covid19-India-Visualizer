@@ -43,3 +43,42 @@
 .state-map {
   display: relative;
 }
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    align-items: flex-center;
+    margin: 0px 15px;
+  }
+
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .info-item {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    margin: 0px 10px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .state-map {
+    margin-bottom: 10px;
+  }
+
+  .info-item span {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+  }
+}
