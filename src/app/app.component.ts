@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { IndiaMapComponent } from './india-map/india-map.component';
-import { Location, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ListItemComponent } from './list-item/list-item.component';
 import { DistrictDataItem, StateData } from './types';
 import { FooterComponent } from './footer/footer.component';
