@@ -63,7 +63,7 @@ export class IndiaMapComponent {
 
     const projection = d3
       .geoMercator()
-      .center([78.9629, 14.2937])
+      .center([78.9629, 13.9037])
       .scale(620)
       .translate([this.width / 2, this.height / 2]);
 
