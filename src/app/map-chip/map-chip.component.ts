@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconMapComponent } from '../icon-map/icon-map.component';
+import { IconMapComponent } from '../icons/icon-map/icon-map.component';
 
 @Component({
   selector: 'app-map-chip',

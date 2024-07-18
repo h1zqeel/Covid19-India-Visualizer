@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import '@material/web/list/list-item.js';
 import '@material/web/list/list.js';
 import '@material/web/button/elevated-button.js';
-import { IconBackComponent } from './icon-back/icon-back.component';
+import { IconBackComponent } from './icons/icon-back/icon-back.component';
 
 @Component({
   selector: 'app-root',

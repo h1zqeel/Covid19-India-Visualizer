@@ -5,14 +5,20 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { IconManWalkComponent } from '../icon-man-walk/icon-man-walk.component';
-import { IconTickComponent } from '../icon-tick/icon-tick.component';
-import { IconCrossComponent } from '../icon-cross/icon-cross.component';
+import { IconManWalkComponent } from '../icons/icon-man-walk/icon-man-walk.component';
+import { IconTickComponent } from '../icons/icon-tick/icon-tick.component';
+import { IconCrossComponent } from '../icons/icon-cross/icon-cross.component';
+import { StateIconComponent } from '../icons/state-icon/state-icon.component';
 
 @Component({
   selector: 'app-list-item',
   standalone: true,
-  imports: [IconManWalkComponent, IconTickComponent, IconCrossComponent],
+  imports: [
+    IconManWalkComponent,
+    IconTickComponent,
+    IconCrossComponent,
+    StateIconComponent,
+  ],
   templateUrl: './list-item.component.html',
   styleUrl: './list-item.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
