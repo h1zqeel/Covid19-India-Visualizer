@@ -1,0 +1,14 @@
+<md-list>
+  <app-list-item
+    (updateStateName)="onSelectDistrict(district.district)"
+    *ngFor="let district of districts"
+    [itemType]="'District'"
+    [stateName]="district.district"
+    [confirmed]="district.confirmed"
+    [recovered]="district.recovered"
+    [deceased]="district.deceased"
+  ></app-list-item>
+</md-list>
+<div *ngIf="!districts.length" class="error">
+  No data available for Selected State
+</div>

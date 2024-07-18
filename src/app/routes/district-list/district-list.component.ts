@@ -3,45 +3,38 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CovidDataService } from '../../covidDataService.service';
 import { DistrictDataItem } from '../../types';
 import { ListItemComponent } from '../../list-item/list-item.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import '@material/web/list/list';
 
 @Component({
   selector: 'app-district-list',
   standalone: true,
-  imports: [ListItemComponent, NgFor],
+  imports: [ListItemComponent, NgFor, NgIf],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: `
-    <md-list>
-      <app-list-item
-        (updateStateName)="onSelectDistrict(district.district)"
-        *ngFor="let district of districts"
-        [itemType]="'District'"
-        [stateName]="district.district"
-        [confirmed]="district.confirmed"
-        [recovered]="district.recovered"
-        [deceased]="district.deceased"
-      ></app-list-item>
-    </md-list>
-  `,
+  templateUrl: './district-list.component.html',
+  styleUrls: ['./district-list.component.css'],
 })
 export class DistrictListComponent implements OnInit {
   districts: DistrictDataItem[] = [];
+
   constructor(
     private router: Router,
     private covidDataService: CovidDataService,
     private activatedRoute: ActivatedRoute,
   ) {}
 
-  async ngOnInit() {
-    if (this.activatedRoute.snapshot.params['state']) {
-      const data = await this.covidDataService.getStateData(
-        this.activatedRoute.snapshot.params['state'],
-      );
-      console.log(data);
-      this.districts = data?.districtData ?? [];
-      console.log(this.districts);
-    }
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      const state = params['state'];
+      if (state) {
+        this.fetchDistrictData(state);
+      }
+    });
+  }
+
+  async fetchDistrictData(state: string): Promise<void> {
+    const data = await this.covidDataService.getStateData(state);
+    this.districts = data?.districtData ?? [];
   }
 
   onSelectDistrict(district: string): void {

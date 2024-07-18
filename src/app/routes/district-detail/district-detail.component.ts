@@ -22,14 +22,20 @@ export class DistrictDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {}
 
-  async ngOnInit() {
-    const state = this.activatedRoute.snapshot.params['state'];
-    const district = this.activatedRoute.snapshot.params['district'];
-    if (state && district) {
-      this.districtData = await this.covidDataService.getDistrictData(
-        state,
-        district,
-      );
-    }
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      const state = params['state'];
+      const district = params['district'];
+      if (state && district) {
+        this.fetchDistrictData(state, district);
+      }
+    });
+  }
+
+  async fetchDistrictData(state: string, district: string): Promise<void> {
+    this.districtData = await this.covidDataService.getDistrictData(
+      state,
+      district,
+    );
   }
 }

@@ -50,11 +50,11 @@ export class AppComponent implements OnInit {
     if (state && district) {
       this.covidDataService.setSelectedDistrict('');
       this.router.navigate(['/states', state]);
-      return;
     } else if (state) {
       this.covidDataService.setSelectedState('');
       this.router.navigate(['/']);
-      return;
+    } else {
+      this.router.navigate(['/']);
     }
   }
 

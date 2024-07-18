@@ -18,6 +18,7 @@ export class IndiaMapComponent {
   private states: any;
   private districts: any;
   private zoom: any;
+  private allowZoom = true;
 
   constructor(
     private covidDataService: CovidDataService,
@@ -27,7 +28,7 @@ export class IndiaMapComponent {
   ngOnInit(): void {
     this.drawMap();
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd && this.allowZoom) {
         const state = this.covidDataService.selectedState;
         const district = this.covidDataService.selectedDistrict;
 
@@ -157,19 +158,24 @@ export class IndiaMapComponent {
           )
           .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
         d3.pointer(event, this.svg.node()),
-      );
-
-    if (d.properties.NAME_1 && !d.properties.NAME_2) {
-      this.router.navigate(['/states', d.properties.NAME_1]);
-    }
-    if (d.properties.NAME_2) {
-      this.router.navigate([
-        '/states',
-        d.properties.NAME_1,
-        'districts',
-        d.properties.NAME_2,
-      ]);
-    }
+      )
+      .on('end', () => {
+        this.allowZoom = false;
+        if (d.properties.NAME_1 && !d.properties.NAME_2) {
+          this.router.navigate(['/states', d.properties.NAME_1]);
+        }
+        if (d.properties.NAME_2) {
+          this.router.navigate([
+            '/states',
+            d.properties.NAME_1,
+            'districts',
+            d.properties.NAME_2,
+          ]);
+        }
+        setTimeout(() => {
+          this.allowZoom = true;
+        }, 200);
+      });
   }
 
   zoomed(event: any): void {
