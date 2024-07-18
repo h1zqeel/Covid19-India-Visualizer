@@ -15,7 +15,7 @@ import { ListItemComponent } from '../../list-item/list-item.component';
       <app-list-item
         (updateStateName)="onSelectState(state.state)"
         *ngFor="let state of states"
-        [itemType]="'State:'"
+        [itemType]="'State'"
         [stateName]="state.state"
         [confirmed]="state.confirmed"
         [recovered]="state.recovered"

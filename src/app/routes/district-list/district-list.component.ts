@@ -16,7 +16,7 @@ import '@material/web/list/list';
       <app-list-item
         (updateStateName)="onSelectDistrict(district.district)"
         *ngFor="let district of districts"
-        [itemType]="'District:'"
+        [itemType]="'District'"
         [stateName]="district.district"
         [confirmed]="district.confirmed"
         [recovered]="district.recovered"
