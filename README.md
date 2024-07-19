@@ -2,6 +2,10 @@
 
 This project is a visualizer for COVID-19 data in India by state and district, built using Angular and D3.js. It provides an interactive and informative way to explore the impact of COVID-19 across different regions in India.
 
+## Prerequisite
+
+Install Node 18.x, 20.x 
+
 ## Development server
 
 Run `npm run start` to start the development server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
