@@ -28,6 +28,8 @@ export class DistrictDetailComponent implements OnInit {
       const district = params['district'];
       if (state && district) {
         this.fetchDistrictData(state, district);
+        this.covidDataService.setSelectedState(state);
+        this.covidDataService.setSelectedDistrict(district);
       }
     });
   }

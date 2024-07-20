@@ -28,6 +28,7 @@ export class DistrictListComponent implements OnInit {
       const state = params['state'];
       if (state) {
         this.fetchDistrictData(state);
+        this.covidDataService.setSelectedState(state);
       }
     });
   }
